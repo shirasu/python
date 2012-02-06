@@ -1,6 +1,6 @@
 class LinkedList(object):
 	class Node(object):
-		def __init__(self,data):
+		def __init__(self,data=0):
 			self.__data = data
 			self.__next = None
 			
@@ -14,11 +14,9 @@ class LinkedList(object):
 			return self.__next
 	
 	def __init__(self):
-		self.__headNode = LinkedList.Node(self)
+		self.__headNode = LinkedList.Node(-1)
 		self.__headNode.__next=None
-		self.__headNode.__data="haed2"
-		
-		print self.__headNode.__data
+
 		
 	def getSize(self):
 		n = 0
@@ -31,29 +29,42 @@ class LinkedList(object):
 				n = n + 1
 		
 		return n
-		
-	def addNode(self,addNode):
-		Node = self.__headNode
-		while Node != None:
-			Node = Node.__next
-			
-		Node.__next = addNode
-	
+
 	def addIndexNode( self,nIndex,addNode ):
-		if nIndex > getSize(self):
-			return 1
-		Node = self.__headNode
-		for n in nIndex:
-			 n +=1
-			 Node=Node.__next
-			 
-		Node2 = Node.__next
-		Node.__next=addNode
-		addNode.__next = Node2
+		node = self.__headNode
+		n = 0
+		while n < nIndex:
+			n += 1
+			node = node.__next
 		
+		node2 = node.__next
+		node.__next = addNode
+		addNode.__next = node2
 		return 0
-		
+
+	def addNode(self,addNode):
+		n = self.getSize()
+		self.addIndexNode(n,addNode)
+
 	def viewData(self):
-		Node = self.__headNode
-		while Node != None:
-			print Node.__data
+		print "View Data"
+		node = self.__headNode
+		while True:
+			if node == None:
+				break
+			else:
+				print node.getData()
+				node = node.__next
+		print "end!"
+
+if __name__ == "__main__":
+	listA = LinkedList()
+	nodeA = LinkedList.Node(1)
+	print "nodeA=", nodeA.getData()
+	listA.addIndexNode(0,nodeA)
+	print listA.getSize()
+	nodeB = LinkedList.Node(2)
+	print "nodeB=", nodeB.getData()
+	listA.addIndexNode(1,nodeB)
+	print listA.getSize()
+	listA.viewData()
