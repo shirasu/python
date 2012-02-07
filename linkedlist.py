@@ -14,7 +14,7 @@ class LinkedList(object):
 			return self.__next
 	
 	def __init__(self):
-		self.__headNode = LinkedList.Node(-1)
+		self.__headNode = LinkedList.Node("head")
 		self.__headNode.__next=None
 
 		
@@ -46,6 +46,22 @@ class LinkedList(object):
 		n = self.getSize()
 		self.addIndexNode(n,addNode)
 
+	def delNode(self,nIndex):
+		if nIndex == 0:
+			return
+		node = self.__headNode
+		nodePre = self.__headNode
+		n = 0
+		while n < nIndex:
+			n += 1
+			nodePre = node
+			node = node.__next
+
+		nodePre.__next = node.__next
+		del node
+
+		return 0
+
 	def viewData(self):
 		print "View Data"
 		node = self.__headNode
@@ -67,4 +83,18 @@ if __name__ == "__main__":
 	print "nodeB=", nodeB.getData()
 	listA.addIndexNode(1,nodeB)
 	print listA.getSize()
+	nodeC = LinkedList.Node(3)
+	listA.addNode(nodeC)
+	nodeD = LinkedList.Node(4)
+	listA.addIndexNode(2,nodeD)
 	listA.viewData()
+	listA.delNode(3)
+	listA.viewData()
+	
+	listA.delNode(3)
+	listA.viewData()
+	listA.delNode(2)
+	listA.viewData()
+	listA.delNode(1)
+	listA.viewData()
+	
